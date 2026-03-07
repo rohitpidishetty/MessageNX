@@ -25,7 +25,7 @@ public class ProducerListener {
             this.worker.workOn(topic, this.mq);
             return ResponseEntity.status(200).body("Job offered");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Try again");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Try again, make sure you have registered a new app id.");
         }
     }
 
@@ -44,3 +44,4 @@ public class ProducerListener {
         }
     }
 }
+
