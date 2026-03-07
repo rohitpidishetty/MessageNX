@@ -15,7 +15,7 @@ public class MessageQueue {
     final public ConcurrentHashMap<String, BlockingQueue<Object>> MessageNXQChannels = new ConcurrentHashMap<>();
 
     public void offer(String channel, Object topic) {
-        this.MessageNXQChannels.get(channel).offer(topic);
+        this.MessageNXQChannels.computeIfAbsent(channel, e -> new LinkedBlockingQueue<Object>()).offer(topic);
     }
 
     public boolean idAlreadyExists(String id) {
