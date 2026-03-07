@@ -13,6 +13,9 @@ import java.util.Map;
 public class ConsumerWorker {
     public ResponseEntity<?> pollMessage(MessageQueue mq, String channel) {
 
+        if (!mq.MessageNXQChannels.containsKey(channel)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No channel");
+        }
         if (mq.MessageNXQChannels.get(channel).isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No messages");
         HashMap<String, Object> topic = (HashMap<String, Object>) mq.MessageNXQChannels.get(channel).poll();
