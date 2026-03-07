@@ -50,6 +50,13 @@ public class SecurityConfig extends OncePerRequestFilter {
     private final int INTERVAL = 12000; // 12 seconds, 1 Request per 12 seconds
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+
+        String method = request.getMethod();
+        return "GET".equalsIgnoreCase(method) || "OPTIONS".equalsIgnoreCase(method);
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setHeader("Access-Control-Allow-Origin", "*");
